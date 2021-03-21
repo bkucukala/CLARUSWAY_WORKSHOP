@@ -9,8 +9,11 @@
 </head>
 
 <body>
-    <h1>Hello, {{ name }}!</h1>
-    <h1>Welcome to my Greeting Page</h1>
+    {% if message %}
+    <h1> {{ message }} </h1>
+    {% else %}
+    <h1> "There is no message in here...</h1>
+    {% endif %}
 </body>
 
 </html>
