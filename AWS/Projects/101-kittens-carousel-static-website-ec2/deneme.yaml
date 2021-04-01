@@ -1,0 +1,35 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This template creates an EC2 instance with an SSH connection.
+  
+Resources:
+  CFNInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+
+      ImageId: ami-0533f2ba8a1995cf9
+
+      InstanceType: t2.micro
+
+      KeyName: bekir2 # please put you own key name
+
+      SecurityGroups: 
+        - SSH-HTTP-SCF
+
+      Tags:
+        - Key: Name
+          Value: cfn-webserver
+      UserData:
+        'Fn::Base64': |
+        #!/bin/bash
+        yum update -y
+        yum install -y httpd
+        chmod -R 777 /var/www/html
+        cd /var/www/html
+        wget https://raw.githubusercontent.com/bkucukala/CLARUSWAY_WORKSHOP/main/AWS/Projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+        wget https://raw.githubusercontent.com/bkucukala/CLARUSWAY_WORKSHOP/main/AWS/Projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+        wget https://raw.githubusercontent.com/bkucukala/CLARUSWAY_WORKSHOP/main/AWS/Projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+        wget https://raw.githubusercontent.com/bkucukala/CLARUSWAY_WORKSHOP/main/AWS/Projects/101-kittens-carousel-static-website-ec2/static-web/index.html
+        systemctl start httpd
+        systemctl enable httpd

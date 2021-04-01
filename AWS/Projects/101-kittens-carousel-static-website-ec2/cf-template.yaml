@@ -14,7 +14,7 @@ Resources:
       KeyName: bekir2 # please put you own key name
 
       SecurityGroups: 
-        - SSH-HTTP-SCF
+        - SSH-HTTP-SCF #please write your existing SecurityGroup name
 
       Tags:
         - Key: Name
