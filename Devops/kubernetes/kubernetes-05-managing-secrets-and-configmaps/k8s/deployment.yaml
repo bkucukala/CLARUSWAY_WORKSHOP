@@ -26,4 +26,4 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: demo-config
-                  key: selam
+                  key: config
