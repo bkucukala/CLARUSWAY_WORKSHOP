@@ -3,6 +3,6 @@ kind: Secret
 metadata:
   name: example-secret
 type: Opaque
-stringData:
+data:
   username: YWRtaW4=
   password: YWRtaW5wYXNzd29yZA==
