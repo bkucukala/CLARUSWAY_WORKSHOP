@@ -5,14 +5,15 @@ metadata:
 spec:
   containers:
     - name: nginx-container
-      image: 'nginx:1.19.1'
+      image: nginx:1.19.1
       ports:
         - containerPort: 80
       volumeMounts:
         - name: nginx-config-volume
-          mountPath: /etc/nginx
+          mountPath: /etc/nginx/a
         - name: htpasswd-volume
-          mountPath: /etc/nginx/conf
+          mountPath: /etc/nginx/aconf
+  restartPolicy: Always
   volumes:
     - name: nginx-config-volume
       configMap:
