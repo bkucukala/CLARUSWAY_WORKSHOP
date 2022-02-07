@@ -1,0 +1,26 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: web-bekir-deploy
+spec:
+  replicas: 1 
+  selector:  
+    matchLabels:
+      app: bekir-flask
+  minReadySeconds: 10 
+  strategy:
+    type: RollingUpdate 
+    rollingUpdate:
+      maxUnavailable: 1 
+      maxSurge: 1 
+  template: 
+    metadata:
+      labels:
+        app: bekir-flask
+        env: front-end
+    spec:
+      containers:
+      - name: bekir-flask-pod
+        image: bkucukala/webflask:1.0
+        ports:
+        - containerPort: 5000

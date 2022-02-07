@@ -1,4 +1,5 @@
 FROM python:alpine
+MAINTAINER "Clarusway DevOps Team"
 ENV GREETING="Hallo"
 ENV USERNAME="Test"
 WORKDIR /project
