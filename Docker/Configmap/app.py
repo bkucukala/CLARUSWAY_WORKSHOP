@@ -11,6 +11,7 @@ version = "1.0"
 
 @app.route('/')
 def main_entry():
+    greeting= os.environ['GREETING']
     return render_template('index.html', message = greeting, ip = IPAddr, host_name = hostname, user = user, version = version )
 
 if __name__ == '__main__':
