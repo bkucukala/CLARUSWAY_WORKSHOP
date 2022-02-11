@@ -48,10 +48,10 @@ For information on installing or upgrading eksctl, see [Installing or upgrading 
 sudo yum update -y
 ```
 
-- Download the Amazon EKS vended kubectl binary.
+- Download the Amazon EKS vended kubectl binary. https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 
 ```bash
-curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.9/2020-08-04/bin/linux/amd64/kubectl
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.21.2/2021-07-05/bin/linux/amd64/kubectl
 ```
 
 - Apply execute permissions to the binary.
@@ -74,7 +74,7 @@ kubectl version --short --client
 
 ### Install eksctl
 
-- Download and extract the latest release of eksctl with the following command.
+- Download and extract the latest release of eksctl with the following command. https://github.com/weaveworks/eksctl
 
 ```bash
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -109,6 +109,7 @@ eksctl create cluster \
  --name serdar-cluster \
  --region us-east-2 \
  --nodegroup-name my-nodes \
+ --spot \
  --node-type t2.medium \
  --nodes 2 \
  --nodes-min 2 \
