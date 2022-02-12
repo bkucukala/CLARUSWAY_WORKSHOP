@@ -107,7 +107,7 @@ aws configure
 ```bash
 eksctl create cluster \
  --name serdar-cluster \
- --region us-east-2 \
+ --region us-east-1 \
  --nodegroup-name my-nodes \
  --spot \
  --node-type t2.medium \

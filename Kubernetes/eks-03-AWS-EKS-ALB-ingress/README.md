@@ -115,8 +115,8 @@ aws configure
 
 eksctl create cluster \
  --name mycluster \
- --version 1.18 \
- --region us-east-2 \
+ --version 1.21 \
+ --region us-east-1 \
  --nodegroup-name my-nodes \
  --node-type t2.medium \
  --nodes 1 \
@@ -128,7 +128,7 @@ eksctl create cluster \
 
 or 
 
-eksctl create cluster --region us-east-2 --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 2 --name mycluster
+eksctl create cluster --region us-east-1 --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 2 --name mycluster
 
 ```
 
