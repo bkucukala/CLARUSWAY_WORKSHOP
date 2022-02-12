@@ -114,7 +114,7 @@ aws configure
 ```bash
 
 eksctl create cluster \
- --name mycluster \
+ --name serdar-cluster \
  --version 1.21 \
  --region us-east-1 \
  --nodegroup-name my-nodes \
@@ -143,6 +143,39 @@ $ eksctl create cluster --help
 ## Part 3 - Ingress and AWS LoadBalancer Controller (ALB)
 
 - Firstly, we deploy the AWS Load Balancer Controller to our Amazon EKS cluster according to [AWS Load Balancer Controller user guide](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)
+
+curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.3.1/docs/install/iam_policy.json 
+
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam_policy.json
+
+
+eksctl create iamserviceaccount \
+  --cluster=serdar-cluster \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-policy-arn=arn:aws:iam::503770179516:policy/AWSLoadBalancerControllerIAMPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+
+Add the eks-charts repository.
+
+helm repo add eks https://aws.github.io/eks-charts
+
+Update your local repo to make sure that you have the most recent charts.
+
+helm repo update
+
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=serdar-cluster \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller 
+
+
+
 
 - Verify that the controller is installed.
 
@@ -344,5 +377,5 @@ ingress-clarusshop   <none>   clarusshop.clarusway.us   k8s-default-ingressc-38a
 $ eksctl get cluster
 NAME            REGION
 mycluster       us-east-2
-$ eksctl delete cluster mycluster
+$ eksctl delete cluster serdar-cluster
 ```

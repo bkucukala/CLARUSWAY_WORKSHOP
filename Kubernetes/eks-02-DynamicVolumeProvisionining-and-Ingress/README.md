@@ -78,6 +78,7 @@ kubectl version --short --client
 
 ```bash
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /usr/local/bin
 ```
 
 - Move the extracted binary to /usr/local/bin.
@@ -111,9 +112,9 @@ eksctl create cluster \
  --nodegroup-name my-nodes \
  --spot \
  --node-type t2.medium \
- --nodes 2 \
- --nodes-min 2 \
- --nodes-max 3 \
+ --nodes 1 \
+ --nodes-min 1 \
+ --nodes-max 2 \
  --ssh-access \
  --ssh-public-key  ~/.ssh/id_rsa.pub \
  --managed
@@ -319,11 +320,14 @@ ingress-yaml-files
 ```shell
 mkdir repo
 cd repo
+sudo yum install git -y
 git init
-git remote add origin <origin-url>
+git remote add origin https://github.com/clarusway/clarusway-devops-9-21.git
 git config core.sparseCheckout true
-echo subdirectory/under/repo/ >> .git/info/sparse-checkout  # do not put the repository folder name in the beginning
+echo "hands-on/Kubernetes/eks-02-DynamicVolumeProvisionining-and-Ingress/ingress-yaml-files/" >> .git/info/sparse-checkout  # do not put the repository folder name in the beginning
 git pull origin <branch-name>
+cp -R  repo/hands-on/Kubernetes/eks-02-DynamicVolumeProvisionining-and-Ingress/ingress-yaml-files/ .
+
 ```
 
 ### Steps of execution:
@@ -594,6 +598,7 @@ Briefly explain ingress and ingress controller. For additional information a few
 
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.35.0/deploy/static/provider/aws/deploy.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/deploy.yaml
 
 ```
 
